@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#252525"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragments.onboard.OnBoardPagingFragment">
+
+    <TextView
+        app:layout_constraintStart_toStartOf="@id/img_title"
+        app:layout_constraintBottom_toTopOf="@id/img_title"
+        app:layout_constraintEnd_toEndOf="@id/img_title"
+        android:layout_marginBottom="32dp"
+        android:text="Notes"
+        android:textStyle="bold"
+        android:textSize="28sp"
+        android:textColor="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="@id/img_title"
+        app:layout_constraintStart_toStartOf="@id/img_title"
+        app:layout_constraintTop_toBottomOf="@id/img_title"
+        android:textColor="@color/white"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:id="@+id/txt_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Удобство" />
+
+    <ImageView
+        android:layout_marginTop="146dp"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:src="@mipmap/ic_launcher"
+        android:id="@+id/img_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="286dp"
+        android:layout_height="264dp"/>
+
+    <TextView
+        android:id="@+id/desc"
+        android:layout_marginTop="24dp"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@id/txt_title"
+        app:layout_constraintEnd_toEndOf="@id/txt_title"
+        app:layout_constraintTop_toBottomOf="@id/txt_title"
+        android:textColor="#838383"
+        tools:text="Создавайте заметки в два клика! Записывайте мысли, идеи и важные задачи мгновенно."
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <View
+        android:background="@drawable/cruc"
+        android:id="@+id/view1"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="602dp"
+        app:layout_constraintEnd_toStartOf="@id/view2"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="12dp"
+        android:layout_height="12dp"/>
+
+    <View
+        android:background="@drawable/cruc"
+        android:id="@+id/view2"
+        android:layout_marginTop="602dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="12dp"
+        android:layout_height="12dp"/>
+
+    <View
+        android:background="@drawable/cruc"
+        android:id="@+id/view3"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="602dp"
+        app:layout_constraintStart_toEndOf="@id/view2"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="12dp"
+        android:layout_height="12dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
