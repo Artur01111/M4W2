@@ -8,18 +8,6 @@
     tools:context=".ui.fragments.onboard.OnBoardPagingFragment">
 
     <TextView
-        app:layout_constraintStart_toStartOf="@id/img_title"
-        app:layout_constraintBottom_toTopOf="@id/img_title"
-        app:layout_constraintEnd_toEndOf="@id/img_title"
-        android:layout_marginBottom="32dp"
-        android:text="Notes"
-        android:textStyle="bold"
-        android:textSize="28sp"
-        android:textColor="@color/white"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <TextView
         android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="@id/img_title"
         app:layout_constraintStart_toStartOf="@id/img_title"

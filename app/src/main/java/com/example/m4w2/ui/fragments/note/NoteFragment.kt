@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.core.app.SharedElementCallback
 import com.example.m4w2.R
 import com.example.m4w2.databinding.FragmentNoteBinding
+import com.example.m4w2.ui.utils.SharedPreference
 
 class NoteFragment : Fragment() {
 
@@ -23,5 +24,18 @@ class NoteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupListeners()
+    }
+
+    private fun setupListeners() = with(this.binding){
+        val sharedPreference = SharedPreference
+        SharedPreference.unit(requireContext())
+
+        btnSave.setOnClickListener {
+            val et = noteEditText.text.toString()
+            SharedPreference.text = et
+            noteTxtSave.text = et
+        }
+        noteTxtSave.text = SharedPreference.text
     }
 }
