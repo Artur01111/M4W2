@@ -30,12 +30,5 @@ class NoteFragment : Fragment() {
     private fun setupListeners() = with(this.binding){
         val sharedPreference = SharedPreference
         SharedPreference.unit(requireContext())
-
-        btnSave.setOnClickListener {
-            val et = noteEditText.text.toString()
-            SharedPreference.text = et
-            noteTxtSave.text = et
-        }
-        noteTxtSave.text = SharedPreference.text
     }
 }
