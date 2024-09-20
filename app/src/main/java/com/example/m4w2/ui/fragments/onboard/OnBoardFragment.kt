@@ -11,7 +11,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.m4w2.R
 import com.example.m4w2.databinding.FragmentOnBoardBinding
 import com.example.m4w2.ui.adapter.OnBoardPagerAdapter
-import com.example.m4w2.ui.utils.SharedPreference
+import com.example.m4w2.ui.utils.PreferenceHelper
 
 class OnBoardFragment : Fragment() {
 
@@ -34,7 +34,7 @@ class OnBoardFragment : Fragment() {
     }
     private fun initialize() {
         binding.viewPager2.adapter = OnBoardPagerAdapter(this@OnBoardFragment)
-        SharedPreference.unit(requireContext())
+        PreferenceHelper.unit(requireContext())
     }
 
 
@@ -77,8 +77,8 @@ class OnBoardFragment : Fragment() {
     }
 
     private fun openHome(){
-        val sharedPreference = SharedPreference
-        SharedPreference.unit(requireContext())
+        val sharedPreference = PreferenceHelper
+        sharedPreference.unit(requireContext())
         sharedPreference.isOnBoardShown = true
         findNavController().navigate(R.id.action_onBoardFragment_to_noteFragment)
     }

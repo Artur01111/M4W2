@@ -39,23 +39,23 @@ class OnBoardPagingFragment : Fragment() {
                 Glide.with(imgTitle).load(R.drawable.giphy1).into(imgTitle)
                 txtTitle.text = "Удобство"
                 desc.text = "Создавайте заметки в два клика! Записывайте мысли, идеи и важные задачи мгновенно."
-                view1.setBackgroundResource(R.drawable.cruc2)
-                view2.setBackgroundResource(R.drawable.cruc)
-                view3.setBackgroundResource(R.drawable.cruc)
+                view1.setBackgroundResource(R.drawable.a)
+                view2.setBackgroundResource(R.drawable.b)
+                view3.setBackgroundResource(R.drawable.b)
             }
             1 -> {
                 Glide.with(imgTitle).load(R.drawable.giphy1).into(imgTitle)
-                view1.setBackgroundResource(R.drawable.cruc)
-                view2.setBackgroundResource(R.drawable.cruc2)
-                view3.setBackgroundResource(R.drawable.cruc)
+                view1.setBackgroundResource(R.drawable.b)
+                view2.setBackgroundResource(R.drawable.a)
+                view3.setBackgroundResource(R.drawable.b)
                 txtTitle.text = "Организация"
                 desc.text = "Организуйте заметки по папкам и тегам. Легко находите нужную информацию в любое время."
             }
             2 -> {
                 Glide.with(imgTitle).load(R.drawable.giphy1).into(imgTitle)
-                view1.setBackgroundResource(R.drawable.cruc)
-                view2.setBackgroundResource(R.drawable.cruc)
-                view3.setBackgroundResource(R.drawable.cruc2)
+                view1.setBackgroundResource(R.drawable.b)
+                view2.setBackgroundResource(R.drawable.b)
+                view3.setBackgroundResource(R.drawable.a)
                 txtTitle.text = "Синхронизация"
                 desc.text = "Синхронизация на всех устройствах. Доступ к записям в любое время и в любом месте."
             }
