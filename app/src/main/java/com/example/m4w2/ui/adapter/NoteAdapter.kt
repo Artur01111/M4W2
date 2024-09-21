@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.m4w2.databinding.ItemNoteBinding
 import com.example.m4w2.ui.data.models.NoteModel
+import com.example.m4w2.ui.fragments.note.NoteDetailFragment
 import com.example.m4w2.ui.utils.OnClick
 
 class NoteAdapter : ListAdapter<NoteModel, NoteAdapter.ViewHolder>(DiffCallback()) {
@@ -21,8 +22,7 @@ class NoteAdapter : ListAdapter<NoteModel, NoteAdapter.ViewHolder>(DiffCallback(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = getItem(position)
-        holder.bind(item)
+        holder.onBind(getItem(position))
     }
 
     fun setOnNoteClickListener(listener: OnClick) {
@@ -30,18 +30,18 @@ class NoteAdapter : ListAdapter<NoteModel, NoteAdapter.ViewHolder>(DiffCallback(
     }
 
     inner class ViewHolder(private val binding: ItemNoteBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+        RecyclerView.ViewHolder(binding.root){
 
         @SuppressLint("ResourceAsColor")
-        fun bind(noteModel: NoteModel) {
+        fun onBind(item: NoteModel) {
             binding.apply {
-                tvTitle.text = noteModel.title
-                tvDescription.text = noteModel.content
-                tvData.text = noteModel.date
-                tvTime.text = noteModel.time
-                itemView.setBackgroundColor(noteModel.color)
-                itemView.setOnClickListener {
-                    onNoteClickListener?.onItemClick(noteModel)
+                tvTitle.text = item.title
+                tvDescription.text = item.content
+                tvData.text = item.date
+                tvTime.text = item.time
+                itemView.setBackgroundColor(item.color)
+                itemView.setOnClickListener{
+                    onNoteClickListener?.onItemClick(item)
                 }
             }
         }

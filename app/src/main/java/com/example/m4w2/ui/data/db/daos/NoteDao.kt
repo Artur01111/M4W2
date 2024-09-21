@@ -12,7 +12,7 @@ import com.example.m4w2.ui.data.models.NoteModel
 interface NoteDao {
 
     @Query("SELECT * FROM noteModel")
-    fun getAllNotes(): List<NoteModel>
+    fun getAllNotes(): LiveData<List<NoteModel>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertNote(noteModel: NoteModel)

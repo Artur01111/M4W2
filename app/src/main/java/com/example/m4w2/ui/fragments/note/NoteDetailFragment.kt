@@ -9,9 +9,9 @@ import android.view.ViewGroup
 import android.widget.RadioButton
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.example.m4w2.App
 import com.example.m4w2.R
 import com.example.m4w2.databinding.FragmentNoteDetailBinding
-import com.example.m4w2.ui.App
 import com.example.m4w2.ui.data.models.NoteModel
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -59,29 +59,21 @@ class NoteDetailFragment : Fragment() {
         binding.txtTime.text = timeText
         binding.txtDate.text = dateText
 
+        setupListeners()
         setupTextChangedListener()
         checkButtonVisibility()
-        initListener()
 
     }
 
-    private fun initListener() {
-        binding.btnFinished.setOnClickListener {
-            val noteModel = NoteModel(
-                title = binding.etTitle.text.toString(),
-                content = binding.etDescription.text.toString(),
-                color = color,
-                time = timeText,
-                date = dateText
-            )
-            App.appDatabase?.noteDao()?.insertNote(noteModel)
-            val notes = App.appDatabase?.noteDao()?.getAllNotes()
-            println("Заметки в базе: $notes")
+    private fun setupListeners() {
+        binding.btnFinished.setOnClickListener{
 
-            findNavController().navigate(R.id.noteFragment)
+            val etTitle = binding.etTitle.text.toString()
+            val etDescription = binding.etDescription.text.toString()
+            App.appDatabase?.noteDao()?.insertNote(NoteModel(etTitle, etDescription, color,timeText,dateText))
+            findNavController().navigateUp()
         }
     }
-
 
     private fun setupTextChangedListener() {
         binding.etTitle.addTextChangedListener(object : TextWatcher {
