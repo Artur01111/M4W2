@@ -6,7 +6,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.m4w2.ui.fragments.onboard.OnBoardPagingFragment
 import com.example.m4w2.ui.fragments.onboard.OnBoardPagingFragment.Companion.ARG_ONBOARD_POSITION
 
-class OnBoardPagerAdapter(fragment: Fragment): FragmentStateAdapter(fragment) {
+class OnBoardViewPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
     override fun getItemCount(): Int {
         return 3
     }

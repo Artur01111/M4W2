@@ -3,7 +3,8 @@ package com.example.m4w2.utils
 import android.content.Context
 import android.content.SharedPreferences
 
-class PreferenceHelper {
+
+object PreferenceHelper {
 
     private lateinit var sharedPreferences: SharedPreferences
 
@@ -11,12 +12,18 @@ class PreferenceHelper {
         sharedPreferences = context.getSharedPreferences("shared", Context.MODE_PRIVATE)
     }
 
+    fun onShowed() {
+        sharedPreferences.edit().putBoolean(SHOWED, true).apply()
+    }
+    fun  isShowed():Boolean{
+        return sharedPreferences.getBoolean(SHOWED, false)
+    }
+
     var isOnBoardShown: Boolean
         get() = sharedPreferences.getBoolean("board", false)
         set(value) = sharedPreferences.edit().putBoolean("board", value).apply()
 
-    var isRecyclerViewGrid: Boolean
-        get() = sharedPreferences.getBoolean("recyclerview", false)
-        set(value) = sharedPreferences.edit().putBoolean("recyclerview", value).apply()
+
+    const val SHOWED = "SHOWED"
 
 }

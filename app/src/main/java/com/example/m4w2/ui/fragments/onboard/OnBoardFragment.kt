@@ -1,27 +1,30 @@
 package com.example.m4w2.ui.fragments.onboard
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.m4w2.R
 import com.example.m4w2.databinding.FragmentOnBoardBinding
-import com.example.m4w2.ui.adapter.OnBoardPagerAdapter
-import com.example.m4w2.ui.utils.SharedPreference
+import com.example.m4w2.ui.adapter.OnBoardViewPagerAdapter
+import com.example.m4w2.utils.PreferenceHelper
+
 
 class OnBoardFragment : Fragment() {
-
     private lateinit var binding: FragmentOnBoardBinding
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentOnBoardBinding.inflate(inflater, container, false)
+        binding = FragmentOnBoardBinding.inflate(layoutInflater)
+
         return binding.root
     }
 
@@ -29,31 +32,34 @@ class OnBoardFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initialize()
         setupListener()
-        btnGetStarted()
-        openHome()
+        setVisible()
+        flag()
+        binding.btnStart.setOnClickListener{
+            PreferenceHelper.onShowed()
+            findNavController().navigate(R.id.noteFragment)
+        }
     }
+
+
+
     private fun initialize() {
-        binding.viewPager2.adapter = OnBoardPagerAdapter(this@OnBoardFragment)
-        SharedPreference.unit(requireContext())
+        binding.viewPager.adapter = OnBoardViewPagerAdapter(this)
+        PreferenceHelper.unit(requireContext())
     }
 
-
-    private fun setupListener() = with(binding.viewPager2) {
+    private fun setupListener() = with(binding.viewPager) {
         binding.tvSend.setOnClickListener {
             if (currentItem < 3) {
                 setCurrentItem(currentItem + 2, true)
             }
         }
         binding.btnStart.setOnClickListener {
-            if (binding.viewPager2.currentItem == 2) {
-                findNavController().navigate(R.id.noteFragment)
-            }
+            findNavController().navigate(R.id.action_onBoardFragment_to_noteFragment)
         }
     }
 
-
-    private fun btnGetStarted() = with(binding) {
-        viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+    private fun setVisible() = with(binding) {
+        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 when (position) {
                     0 -> {
@@ -74,12 +80,9 @@ class OnBoardFragment : Fragment() {
                 super.onPageSelected(position)
             }
         })
-    }
 
-    private fun openHome(){
-        val sharedPreference = SharedPreference
-        SharedPreference.unit(requireContext())
-        sharedPreference.isOnBoardShown = true
-        findNavController().navigate(R.id.action_onBoardFragment_to_noteFragment)
+    }
+    private fun flag() {
+        PreferenceHelper.isOnBoardShown = true
     }
 }
