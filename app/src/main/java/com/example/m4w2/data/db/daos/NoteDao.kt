@@ -7,6 +7,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.example.m4w2.data.models.NoteModel
 
 @Dao
@@ -20,4 +21,10 @@ interface NoteDao {
 
     @Delete
     fun deleteNote(noteModel: NoteModel)
+
+    @Query("SELECT * FROM noteModel Where id = :id")
+    fun getNoteBtId(id:Int): NoteModel
+
+    @Update
+    fun updateNote(noteModel: NoteModel)
 }

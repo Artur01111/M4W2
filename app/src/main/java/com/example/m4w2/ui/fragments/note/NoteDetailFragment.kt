@@ -19,6 +19,7 @@ import java.util.Locale
 class NoteDetailFragment : Fragment() {
 
     private lateinit var binding: FragmentNoteDetailBinding
+    private var noteId:Int = -1
     var timeText = ""
     var dateText = ""
 
@@ -39,21 +40,43 @@ class NoteDetailFragment : Fragment() {
         timeText = timeFormat.format(currentDate)
         binding.txtTime.text = timeText
         binding.txtDate.text = dateText
+        updateNote()
 
         setupListeners()
         setupTextChangedListener()
         checkButtonVisibility()
     }
 
+    private fun updateNote() {
+        arguments?.let { args ->
+            noteId = args.getInt("noteId", -1)
+        }
+        if (noteId != -1){
+            val argsNote = App.appDatabase?.noteDao()?.getNoteBtId(noteId)
+            argsNote?.let { item ->
+                binding.etTitle.setText(item.title)
+                binding.etDescription.setText(item.description)
+            }
+        }
+    }
+
     private fun setupListeners() {
+        binding.back.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
         binding.btnFinished.setOnClickListener {
-            val noteModel = NoteModel(
-                title = binding.etTitle.text.toString(),
-                description = binding.etDescription.text.toString(),
-                time = timeText,
-                date = dateText
-            )
-            App.appDatabase?.noteDao()?.insertNote(noteModel)
+            val etTitle = binding.etTitle.text.toString()
+            val etDescription = binding.etDescription.text.toString()
+            val timeText = binding.txtTime.text.toString()
+            val dateText = binding.txtDate.text.toString()
+            if (noteId != -1){
+                val updateNote = NoteModel(dateText, timeText, etTitle, etDescription)
+                updateNote.id = noteId
+                App.appDatabase?.noteDao()?.updateNote(updateNote)
+            }else{
+                App.appDatabase?.noteDao()?.insertNote(NoteModel(dateText, timeText, etTitle, etDescription))
+            }
             findNavController().navigateUp()
         }
     }

@@ -7,8 +7,13 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.m4w2.data.models.NoteModel
 import com.example.m4w2.databinding.ItemNotesBinding
+import com.example.m4w2.interfaces.OnClickItem
 
-class NoteAdapter : ListAdapter<NoteModel, NoteAdapter.ViewHolder>(DiffCallback()) {
+class NoteAdapter(
+    private val onLongClick: OnClickItem,
+    private val onClick: OnClickItem
+
+) : ListAdapter<NoteModel, NoteAdapter.ViewHolder>(DiffCallback()) {
     class ViewHolder(private val binding: ItemNotesBinding):
     RecyclerView.ViewHolder(binding.root) {
         fun onBind(item: NoteModel?) {
@@ -21,6 +26,14 @@ class NoteAdapter : ListAdapter<NoteModel, NoteAdapter.ViewHolder>(DiffCallback(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.onBind(getItem(position))
+
+        holder.itemView.setOnLongClickListener{
+            onLongClick.onLongClick(getItem(position))
+            true
+        }
+        holder.itemView.setOnClickListener{
+            onClick.onClick(getItem(position))
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
