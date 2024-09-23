@@ -2,33 +2,32 @@ package com.example.m4w2
 
 import android.app.Application
 import androidx.room.Room
-import com.example.m4w2.data.db.AppDataBase
+import com.example.m4w2.data.db.AppDatabase
 import com.example.m4w2.utils.PreferenceHelper
 
 class App: Application() {
-
+    
     companion object{
-        var appDataBase: AppDataBase? = null
+        var appDatabase:AppDatabase? = null
     }
-    override fun onCreate(){
+
+    override fun onCreate() {
         super.onCreate()
-        val sharedPreferences = PreferenceHelper
+        val sharedPreferences = PreferenceHelper( )
         sharedPreferences.unit(this)
         getInstance()
-
     }
 
-    fun getInstance(): AppDataBase? {
-        if (appDataBase == null) {
-            appDataBase = applicationContext?.let {
+    private fun getInstance(): AppDatabase? {
+        if (appDatabase == null){
+            appDatabase = applicationContext?.let { context ->
                 Room.databaseBuilder(
-                    it,
-                    AppDataBase::class.java,
-                    "note.db"
+                    context,
+                    AppDatabase::class.java,
+                    "note.database"
                 ).fallbackToDestructiveMigration().allowMainThreadQueries().build()
             }
         }
-        return appDataBase
-
+        return appDatabase
     }
 }

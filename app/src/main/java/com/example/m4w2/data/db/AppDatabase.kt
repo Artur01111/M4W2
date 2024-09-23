@@ -7,7 +7,7 @@ import com.example.m4w2.data.models.NoteModel
 
 @Database(entities = [NoteModel::class], version = 1)
 
-abstract class AppDataBase : RoomDatabase() {
+abstract class AppDatabase : RoomDatabase() {
     abstract fun noteDao(): NoteDao
 
 }

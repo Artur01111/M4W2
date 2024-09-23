@@ -6,20 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.m4w2.App
 import com.example.m4w2.R
-import com.example.m4w2.data.models.NoteModel
 import com.example.m4w2.databinding.FragmentNoteBinding
 import com.example.m4w2.ui.adapter.NoteAdapter
-import com.example.m4w2.ui.interfaces.OnClick
 
+class NoteFragment : Fragment() {
 
-class NoteFragment : Fragment(), OnClick {
-    private lateinit var adapter: NoteAdapter
     private lateinit var binding: FragmentNoteBinding
-    private var flag = true
+    private val noteAdapter = NoteAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,45 +27,27 @@ class NoteFragment : Fragment(), OnClick {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        adapter = NoteAdapter()
-        val list = App.appDataBase?.noteDao()?.getAllNotes()
-        binding.rvNotes.adapter = adapter
-        adapter.submitList(list)
-        initListener()
+        initialize()
+        setupListeners()
+        getData()
     }
 
-
-
-    override fun onResume() {
-        super.onResume()
-        updateNoteList()
+    private fun initialize() {
+        binding.rvNotes.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = noteAdapter
+        }
     }
 
-    private fun initListener() = with(binding) {
+    private fun setupListeners() = with(binding){
         btnPlus.setOnClickListener {
-            findNavController().navigate(R.id.noteDetailFragment)
-        }
-
-        imgShape.setOnClickListener {
-            if (flag) {
-                imgShape.setImageResource(R.drawable.shape)
-                binding.rvNotes.layoutManager = GridLayoutManager(requireContext(), 2)
-                flag = false
-            }else{
-                imgShape.setImageResource(R.drawable.menu)
-                binding.rvNotes.layoutManager = LinearLayoutManager(requireContext())
-                flag = true
-            }
+            findNavController().navigate(R.id.action_noteFragment_to_noteDetailFragment)
         }
     }
 
-    private fun updateNoteList() {
-        val notes = App().getInstance()?.noteDao()?.getAllNotes()
-        adapter.submitList(notes)
+    private fun getData() {
+        App.appDatabase?.noteDao()?.getAll()?.observe(viewLifecycleOwner){ list ->
+            noteAdapter.submitList(list)
+        }
     }
-
-    override fun onItemClick(noteModel: NoteModel) {
-        val action = NoteFragmentDirections.actionNoteFragmentToNoteDetailFragment(noteModel.id)
-        findNavController().navigate(action)    }
 }

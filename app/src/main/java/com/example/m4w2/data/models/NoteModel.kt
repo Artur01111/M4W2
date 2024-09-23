@@ -1,17 +1,17 @@
 package com.example.m4w2.data.models
 
-import android.graphics.Color
+import android.icu.text.CaseMap.Title
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "noteModel")
-data class NoteModel(
-    val title: String,
-    val content: String,
-    val color: Int = Color.BLACK,
+data class  NoteModel(
+    val date: String,
     val time: String,
-    val date: String
+    val title: String,
+    val description: String
 ){
     @PrimaryKey(autoGenerate = true)
-    var id: Int = 0
+    var id:Int = 0
+
 }

@@ -3,11 +3,10 @@ package com.example.m4w2.ui.fragments.note
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RadioButton
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.m4w2.App
 import com.example.m4w2.R
@@ -21,39 +20,19 @@ import java.util.Locale
 class NoteDetailFragment : Fragment() {
 
     private lateinit var binding: FragmentNoteDetailBinding
-    var color: Int = 0
     var timeText = ""
     var dateText = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         binding = FragmentNoteDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.back.setOnClickListener {
-            findNavController().navigate(R.id.action_noteDetailFragment_to_noteFragment)
-        }
-        binding.radioGroup.setOnCheckedChangeListener { group, checkedId ->
-            val radioButton: RadioButton = when (checkedId) {
-                binding.radio1.id -> binding.radio1
-                binding.radio2.id -> binding.radio2
-                binding.radio3.id -> binding.radio3
-                else -> binding.radio1
-            }
-            radioButton.let {
-                when (it.tag){
-                    "red" -> color = R.color.red
-                    "black" -> color =  R.color.black2
-                    "white" -> color =  R.color.white2
-                }
-            }
-        }
-
         val currentDate = Calendar.getInstance().time
         val dateFormat: DateFormat = SimpleDateFormat("dd MMMM", Locale.getDefault())
         dateText = dateFormat.format(currentDate)
@@ -62,26 +41,23 @@ class NoteDetailFragment : Fragment() {
         binding.txtTime.text = timeText
         binding.txtDate.text = dateText
 
+        sutupListeners()
         setupTextChangedListener()
         checkButtonVisibility()
-        initListener()
-
     }
 
-    private fun initListener() {
+    private fun sutupListeners() {
         binding.btnFinished.setOnClickListener {
             val noteModel = NoteModel(
                 title = binding.etTitle.text.toString(),
-                content = binding.etDescription.text.toString(),
-                color = color,
+                description = binding.etDescription.text.toString(),
                 time = timeText,
                 date = dateText
             )
-            App.appDataBase?.noteDao()?.insertNote(noteModel)
-            findNavController().navigate(R.id.noteFragment)
+            App.appDatabase?.noteDao()?.insertNote(noteModel)
+            findNavController().navigateUp()
         }
     }
-
 
     private fun setupTextChangedListener() {
         binding.etTitle.addTextChangedListener(object : TextWatcher {

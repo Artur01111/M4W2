@@ -1,6 +1,5 @@
 package com.example.m4w2.ui.adapter
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -8,52 +7,37 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.m4w2.data.models.NoteModel
 import com.example.m4w2.databinding.ItemNotesBinding
-import com.example.m4w2.ui.interfaces.OnClick
 
 class NoteAdapter : ListAdapter<NoteModel, NoteAdapter.ViewHolder>(DiffCallback()) {
-
-    private var onNoteClickListener: OnClick? = null
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemNotesBinding.inflate(inflater, parent, false)
-        return ViewHolder(binding)
-    }
-
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = getItem(position)
-        holder.bind(item)
-    }
-
-    fun setOnNoteClickListener(listener: OnClick) {
-        onNoteClickListener = listener
-    }
-
-    inner class ViewHolder(private val binding: ItemNotesBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-
-        @SuppressLint("ResourceAsColor")
-        fun bind(noteModel: NoteModel) {
-            binding.apply {
-                tvTitle.text = noteModel.title
-                tvDescription.text = noteModel.content
-                tvData.text = noteModel.date
-                tvTime.text = noteModel.time
-                itemView.setBackgroundColor(noteModel.color)
-                itemView.setOnClickListener {
-                    onNoteClickListener?.onItemClick(noteModel)
-                }
-            }
+    class ViewHolder(private val binding: ItemNotesBinding):
+    RecyclerView.ViewHolder(binding.root) {
+        fun onBind(item: NoteModel?) {
+            binding.tvTitle.text = item?.title
+            binding.tvDescription.text = item?.description
+            binding.tvData.text = item?.date
+            binding.tvTime.text = item?.time
         }
     }
 
-    class DiffCallback : DiffUtil.ItemCallback<NoteModel>() {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.onBind(getItem(position))
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return ViewHolder(
+            ItemNotesBinding.inflate(LayoutInflater.from(parent.context), parent,false)
+        )
+    }
+
+
+    class DiffCallback: DiffUtil.ItemCallback<NoteModel>() {
         override fun areItemsTheSame(oldItem: NoteModel, newItem: NoteModel): Boolean {
             return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(oldItem: NoteModel, newItem: NoteModel): Boolean {
-            return oldItem.title == newItem.title && oldItem.content == newItem.content
+            return oldItem == newItem
         }
+
     }
 }

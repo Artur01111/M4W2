@@ -18,15 +18,7 @@
         tools:layout="@layout/fragment_note" >
         <action
             android:id="@+id/action_noteFragment_to_noteDetailFragment"
-            app:destination="@id/noteDetailFragment">
-            <argument
-                android:name="noteId"
-                app:argType="integer" />
-        </action>
-        <action
-            android:id="@+id/action_noteFragment_to_noteDetailFragment2"
-            app:destination="@id/noteDetailFragment">
-        </action>
+            app:destination="@id/noteDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/onBoardFragment"

@@ -140,7 +140,7 @@
                 android:id="@+id/radio1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="70dp"
+                android:layout_marginStart="40dp"
                 android:background="@null"
                 android:button="@drawable/custom_radio_button_drawable"
                 android:checked="true"
@@ -166,9 +166,5 @@
                 android:tag="red" />
 
         </RadioGroup>
-
-
     </LinearLayout>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
