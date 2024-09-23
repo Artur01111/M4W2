@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.m4w2.App
-import com.example.m4w2.R
 import com.example.m4w2.data.models.NoteModel
 import com.example.m4w2.databinding.FragmentNoteDetailBinding
 import java.text.DateFormat
@@ -41,12 +40,12 @@ class NoteDetailFragment : Fragment() {
         binding.txtTime.text = timeText
         binding.txtDate.text = dateText
 
-        sutupListeners()
+        setupListeners()
         setupTextChangedListener()
         checkButtonVisibility()
     }
 
-    private fun sutupListeners() {
+    private fun setupListeners() {
         binding.btnFinished.setOnClickListener {
             val noteModel = NoteModel(
                 title = binding.etTitle.text.toString(),
