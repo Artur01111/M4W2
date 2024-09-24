@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         val sharedPreferences = PreferenceHelper()
         sharedPreferences.unit(this)
         if (sharedPreferences.isOnBoardShown) {
-            navController.navigate(R.id.noteFragment)
+            navController.navigate(R.id.action_onBoardFragment_to_singUpFragment)
         } else if (!sharedPreferences.isOnBoardShown) {
             navController.navigate(R.id.onBoardFragment)
         }
