@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragments.onboard.OnBoardFragment">
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/view_pager2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/line1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|top"
+        android:layout_margin="60dp"
+        android:text="Notes"
+        android:textSize="32sp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:visibility="visible" />
+
+
+    <TextView
+        android:id="@+id/tv_send"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_margin="15dp"
+        android:text="Пропустить"
+        android:textColor="#D88B02"
+        android:textStyle="bold"
+        android:visibility="visible" />
+
+    <Button
+        android:text="Начать"
+        android:id="@+id/btn_start"
+        android:textSize="24sp"
+        android:backgroundTint="#FB8C00"
+        android:layout_width="240dp"
+        android:textStyle="bold"
+        android:layout_marginBottom="40dp"
+        android:padding="16dp"
+        android:layout_gravity="bottom|center"
+        android:layout_height="wrap_content"/>
+
+</FrameLayout>
