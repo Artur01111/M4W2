@@ -34,10 +34,10 @@ class MainActivity : AppCompatActivity() {
 
         val sharedPreferences = PreferenceHelper()
         sharedPreferences.unit(this)
-        if (sharedPreferences.isOnBoardShown) {
-        navController.navigate(R.id.chatFragment)
-        } else if (!sharedPreferences.isOnBoardShown) {
-            navController.navigate(R.id.onBoardFragment)
-        }
+        //if (sharedPreferences.isOnBoardShown) {
+        //navController.navigate(R.id.chatFragment)
+        //} else if (!sharedPreferences.isOnBoardShown) {
+        //    navController.navigate(R.id.onBoardFragment)
+        //}
     }
 }

@@ -48,7 +48,23 @@ class NoteFragment : Fragment(), OnClickItem {
         }
 
         menu.setOnClickListener {
+            showMenuDialog()
         }
+    }
+
+    private fun showMenuDialog() {
+        val options = arrayOf("OnBoardFragment", "SignUpFragment", "ChatFragment")
+
+        AlertDialog.Builder(requireContext())
+            .setTitle("Выберите фрагмент для перехода")
+            .setItems(options) { dialog, which ->
+                when (which) {
+                    0 -> findNavController().navigate(R.id.action_noteFragment_to_onBoardFragment)
+                    1 -> findNavController().navigate(R.id.action_noteFragment_to_singUpFragment)
+                    2 -> findNavController().navigate(R.id.action_noteFragment_to_chatFragment)
+                }
+            }
+            .show()
     }
 
     private fun getData() {
