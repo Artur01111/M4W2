@@ -18,7 +18,6 @@ import com.example.m4w2.ui.adapter.NoteAdapter
 class NoteFragment : Fragment(), OnClickItem {
 
     private lateinit var binding: FragmentNoteBinding
-    private var noteId:Int = -1
     private val noteAdapter = NoteAdapter(this, this)
 
     override fun onCreateView(
@@ -43,27 +42,29 @@ class NoteFragment : Fragment(), OnClickItem {
         }
     }
 
-    private fun setupListeners() = with(binding){
+    private fun setupListeners() = with(binding) {
         btnPlus.setOnClickListener {
             findNavController().navigate(R.id.action_noteFragment_to_noteDetailFragment)
+        }
+
+        menu.setOnClickListener {
         }
     }
 
     private fun getData() {
-        App.appDatabase?.noteDao()?.getAll()?.observe(viewLifecycleOwner){ list ->
+        App.appDatabase?.noteDao()?.getAll()?.observe(viewLifecycleOwner) { list ->
             noteAdapter.submitList(list)
         }
     }
 
     override fun onLongClick(noteModel: NoteModel) {
         val builder = AlertDialog.Builder(requireContext())
-        with(builder){
+        with(builder) {
             setTitle("Вы точно хотите удалить заметку?")
-            setPositiveButton("Да"){
-                dialog, _ ->
+            setPositiveButton("Да") { dialog, _ ->
                 App.appDatabase?.noteDao()?.deleteNote(noteModel)
             }
-            setNegativeButton("Нет"){ dialog, _->
+            setNegativeButton("Нет") { dialog, _ ->
                 dialog.cancel()
             }
             show()
